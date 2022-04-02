@@ -41,7 +41,7 @@ app.post('/authOpen',async (req,res,next)=>{
     }
     console.log(user)
     console.log(password)
-    let resp = await client.db('rfidLock').collection('userData').find({user:user}).toArray()
+    let resp = await client.db('rfidlock').collection('userData').find({user:user}).toArray()
     console.log(resp)
 
     if(resp[0]['password'] === password){
