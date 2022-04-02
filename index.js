@@ -11,7 +11,7 @@ const ConnectMongo = async () => {
 function decrypt(cipherText, key, outputEncoding = "utf8") {
     cipherText.split(',').splice(cipherText.length-1,1)
     let text = Buffer.from(cipherText)
-    const cipher = crypto.createDecipheriv("aes-128-ecb", key, null);
+    const cipher = crypto.createDecipheriv("aes-128-ecb", key);
     return Buffer.concat([cipher.update(text)]).toString(outputEncoding);
 }
 
