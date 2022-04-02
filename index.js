@@ -50,7 +50,7 @@ app.post('/authOpen',async (req,res,next)=>{
         res.json({'status':'lock'}).status(200)
     }
 
-    await client.db('rfidLock').collection('userLog').insertOne({"user":user,"timestamp":(new Date()).toDateString()})
+    await client.db('rfidlock').collection('userLog').insertOne({"user":user,"timestamp":(new Date()).toDateString()})
 })
 
 app.listen(process.env.PORT || 3000)
