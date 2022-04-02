@@ -25,8 +25,9 @@ app.get('/',(req,res,next)=>{
     res.json({"Status":"Working"}).status(200)
 })
 
-app.post('/authOpen',async (req,res,next)=>{
-    let enced = req.body
+app.get('/authOpen',async (req,res,next)=>{
+    let enced = req.query
+    console.log(enced)
     let data=''
     if(enced['enc']){
         data = decrypt(enced['data'],key,null)
