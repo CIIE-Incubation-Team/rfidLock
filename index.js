@@ -39,7 +39,8 @@ app.post('/authOpen',async (req,res,next)=>{
         user = enced['user']
         password = enced['password']
     }
-
+    console.log(user)
+    console.log(password)
     let resp = await client.db('rfidLock').collection('userData').find({user:user}).toArray()
     console.log(resp)
 
