@@ -12,7 +12,7 @@ function decrypt(cipherText, key, outputEncoding = "utf8") {
     cipherText.split(',').splice(cipherText.length-1,1)
     let text = Buffer.from(cipherText)
     const cipher = crypto.createDecipheriv("aes-128-ecb", key, null);
-    return Buffer.concat([cipher.update(text), cipher.final()]).toString(outputEncoding);
+    return Buffer.concat([cipher.update(text)]).toString(outputEncoding);
 }
 
 const key = Buffer.from([99,  58,  95,  49, 253, 54, 136, 144, 194, 151, 184, 84, 159,  59,  36, 178])
