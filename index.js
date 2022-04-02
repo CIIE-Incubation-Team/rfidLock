@@ -25,8 +25,8 @@ app.get('/',(req,res,next)=>{
     res.json({"Status":"Working"}).status(200)
 })
 
-app.get('/authOpen',async (req,res,next)=>{
-    let enced = req.query
+app.post('/authOpen',async (req,res,next)=>{
+    let enced = req.body
     console.log(enced)
     let data=''
     if(enced['enc']){
