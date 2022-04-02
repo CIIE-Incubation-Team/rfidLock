@@ -9,11 +9,13 @@ const ConnectMongo = async () => {
 }
 
 function decrypt(cipherText, key, outputEncoding = "utf8") {
+    cipherText.split(',').splice(cipherText.length-1,1)
+    let text = Buffer.from(cipherText)
     const cipher = crypto.createDecipheriv("aes-128-ecb", key, null);
-    return Buffer.concat([cipher.update(cipherText), cipher.final()]).toString(outputEncoding);
+    return Buffer.concat([cipher.update(text), cipher.final()]).toString(outputEncoding);
 }
 
-const key = [99,  58,  95,  49, 253, 54, 136, 144, 194, 151, 184, 84, 159,  59,  36, 178]
+const key = Buffer.from([99,  58,  95,  49, 253, 54, 136, 144, 194, 151, 184, 84, 159,  59,  36, 178])
 
 const app = express()
 const client = await ConnectMongo()
@@ -28,15 +30,15 @@ app.get('/',(req,res,next)=>{
 app.post('/authOpen',async (req,res,next)=>{
     let enced = req.body
     console.log(enced)
-    let data=''
+    let user
+    let password
     if(enced['enc']){
-        data = decrypt(enced['data'],key,null)
+        user = decrypt(enced['user'],key,null)
+        password = decrypt(enced['password'],key,null)
     } else {
-        data = enced['data']
+        user = enced['user']
+        password = enced['password']
     }
-    data = JSON.parse(data)
-    let user = data.user
-    let password = data.password
 
     let resp = await client.db('rfidLock').collection('userData').find({user:user}).toArray()
 
